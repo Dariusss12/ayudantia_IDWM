@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using proy_ayudantía.Src.Data;
 using proy_ayudantía.Src.Models;
@@ -17,6 +13,15 @@ namespace proy_ayudantía.Src.Repositories.Implements
         {
             _context = context;
         }
+
+        public async Task<User?> GetUserByEmail(string Email)
+        {
+            var user = await _context.Users.Where(u => u.Email == Email)
+                                            .Include(u => u.Role)
+                                            .FirstOrDefaultAsync();
+            return user;
+        }
+
         public async Task<IEnumerable<User>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
