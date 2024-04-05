@@ -8,7 +8,7 @@ namespace ayudantia_IDWM.Src.Validators
 {
     public class RutValidationAttribute : ValidationAttribute
     {
-        public bool IsValid(object? value){
+        public override bool IsValid(object? value){
             if(value != null){
                 return true;
             }
