@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using proy_ayudantía.Src.Models;
 using proy_ayudantía.Src.Repositories.Interfaces;
@@ -5,6 +6,7 @@ using proy_ayudantía.Src.Repositories.Interfaces;
 namespace proy_ayudantía.Src.Controllers
 {
     [ApiController]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {

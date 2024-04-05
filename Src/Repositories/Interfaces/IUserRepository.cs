@@ -7,5 +7,9 @@ namespace proy_ayudantía.Src.Repositories.Interfaces
         Task<IEnumerable<User>> GetUsers();
 
         Task<User?> GetUserByEmail(string Email);
+
+        Task<bool> VerifyUserByEMail(string Email);
+
+        Task AddUser(User user);
     }
 }
