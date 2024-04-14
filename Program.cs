@@ -1,5 +1,6 @@
 using System.Text;
 using ayudantia_IDWM.Src.Data;
+using ayudantia_IDWM.Src.Helpers;
 using ayudantia_IDWM.Src.Repositories.Implements;
 using ayudantia_IDWM.Src.Repositories.Interfaces;
 using ayudantia_IDWM.Src.Services.Implements;
@@ -21,10 +22,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlite("Data Source=Ayudantia.db"));
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMapperService, MapperService>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 builder.Services.AddAuthentication().AddJwtBearer(options =>
 {
