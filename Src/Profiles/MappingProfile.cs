@@ -13,6 +13,7 @@ namespace ayudantia_IDWM.Src.Profiles
         public MappingProfile()
         {
             CreateMap<RegisterUserDto, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }

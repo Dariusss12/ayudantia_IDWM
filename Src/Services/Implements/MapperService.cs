@@ -23,5 +23,11 @@ namespace ayudantia_IDWM.Src.Services.Implements
             var mappedUser = _mapper.Map<User>(registerUserDto);
             return mappedUser;
         }
+
+        public IEnumerable<UserDto> UserToUserDto(IEnumerable<User> users)
+        {
+            var mappedUsers = users.Select(u => _mapper.Map<UserDto>(u)).ToList();
+            return mappedUsers;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using ayudantia_IDWM.Src.DTOs;
 using Microsoft.EntityFrameworkCore;
 using proy_ayudantía.Src.Data;
 using proy_ayudantía.Src.Models;
@@ -20,6 +21,35 @@ namespace proy_ayudantía.Src.Repositories.Implements
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> DeleteUser(int id)
+        {
+            var existingUser = await _context.Users.FindAsync(id);
+            if(existingUser == null){
+                return false;
+            }
+            
+            _context.Remove(existingUser);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> EditUser(int id, EditUserDto editUser)
+        {
+            var existingUser = await _context.Users.FindAsync(id);
+            if (existingUser == null){
+                return false;
+            }
+
+            existingUser.Nombre = editUser.Nombre ?? existingUser.Nombre;
+
+            _context.Entry(existingUser).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return true;
+
+        }
+
         public async Task<User?> GetUserByEmail(string Email)
         {
             var user = await _context.Users.Where(u => u.Email == Email)
@@ -30,7 +60,7 @@ namespace proy_ayudantía.Src.Repositories.Implements
 
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.Where(u => u.RoleId == 2).ToListAsync();
             return users;
         }
 
